@@ -1,14 +1,176 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
+<body>
+  <!-- Page Preloder -->
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
 
-<p>
-  <strong>Body:</strong>
-  <%= @article.body %>
-</p>
+  <%= render 'shared/navbar'%>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+  <!-- Page info -->
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
+    <div class="container">
+      <div class="site-breadcrumb">
+        <a style="color:black;" href="#">Accueil</a>
+        <span>Article</span>
+      </div>
+    </div>
+  </div>
+  <!-- Page info end -->
+
+
+  <%= render 'shared/searchclient'%>
+
+
+  <!-- single course section -->
+  <section class="single-course spad pb-0">
+    <div class="container">
+      <div class="course-meta-area">
+        <div class="row">
+          <div class="col-lg-10 offset-lg-1">
+            <div class="course-note"><%= @article.created_at.strftime("%d.%m.%Y")%></div>
+            <h3><%=@article.title.capitalize%></h3>
+            <div class="course-metas">
+              <div class="course-meta">
+                <div class="course-author">
+                  <div class="ca-pic set-bg" data-setbg="../assets/authors/2.jpg"></div>
+                  <h6>Rédacteur</h6>
+                  <p>William Parker, <span>Developer</span></p>
+                </div>
+              </div>
+              <div class="course-meta">
+                <div class="cm-info">
+                  <h6>Catégorie</h6>
+                  <p>Development</p>
+                </div>
+              </div>
+
+              <div class="course-meta">
+                <div class="cm-info">
+                  <h6>Commentaires</h6>
+                  <p>2 commentaires <span class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star is-fade"></i>
+                  </span></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <img src="../assets/courses/single.jpg" alt="" class="course-preview">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1 course-list">
+          <div class="cl-item">
+            <%= @article.body%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- single course section end -->
+
+
+  <!-- Page -->
+  <section class="realated-courses spad">
+    <div class="course-warp">
+      <h2 class="rc-title">Derniers articles traités</h2>
+      <div class="rc-slider owl-carousel">
+        <!-- course -->
+        <div class="course-item">
+          <div class="course-thumb set-bg" data-setbg="../assets/courses/1.jpg">
+            <div class="price">Price: $15</div>
+          </div>
+          <div class="course-info">
+            <div class="course-text">
+              <h5>Art & Crafts</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur</p>
+              <div class="students">120 Students</div>
+            </div>
+            <div class="course-author">
+              <div class="ca-pic set-bg" data-setbg="../assets/authors/1.jpg"></div>
+              <p>William Parker, <span>Developer</span></p>
+            </div>
+          </div>
+        </div>
+        <!-- course -->
+        <div class="course-item">
+          <div class="course-thumb set-bg" data-setbg="../assets/courses/2.jpg">
+            <div class="price">Price: $15</div>
+          </div>
+          <div class="course-info">
+            <div class="course-text">
+              <h5>IT Development</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur</p>
+              <div class="students">120 Students</div>
+            </div>
+            <div class="course-author">
+              <div class="ca-pic set-bg" data-setbg="../assets/authors/2.jpg"></div>
+              <p>William Parker, <span>Developer</span></p>
+            </div>
+          </div>
+        </div>
+        <!-- course -->
+        <div class="course-item">
+          <div class="course-thumb set-bg" data-setbg="../assets/courses/3.jpg">
+            <div class="price">Price: $15</div>
+          </div>
+          <div class="course-info">
+            <div class="course-text">
+              <h5>Graphic Design</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur</p>
+              <div class="students">120 Students</div>
+            </div>
+            <div class="course-author">
+              <div class="ca-pic set-bg" data-setbg="../assets/authors/3.jpg"></div>
+              <p>William Parker, <span>Developer</span></p>
+            </div>
+          </div>
+        </div>
+        <!-- course -->
+        <div class="course-item">
+          <div class="course-thumb set-bg" data-setbg="../assets/courses/4.jpg">
+            <div class="price">Price: $15</div>
+          </div>
+          <div class="course-info">
+            <div class="course-text">
+              <h5>IT Development</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur</p>
+              <div class="students">120 Students</div>
+            </div>
+            <div class="course-author">
+              <div class="ca-pic set-bg" data-setbg="../assets/authors/4.jpg"></div>
+              <p>William Parker, <span>Developer</span></p>
+            </div>
+          </div>
+        </div>
+        <!-- course -->
+        <div class="course-item">
+          <div class="course-thumb set-bg" data-setbg="../assets/courses/5.jpg">
+            <div class="price">Price: $15</div>
+          </div>
+          <div class="course-info">
+            <div class="course-text">
+              <h5>IT Development</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur</p>
+              <div class="students">120 Students</div>
+            </div>
+            <div class="course-author">
+              <div class="ca-pic set-bg" data-setbg="../assets/authors/5.jpg"></div>
+              <p>William Parker, <span>Developer</span></p>
+            </div>
+          </div>
+        </div>
+        <!-- course -->
+      </div>
+    </div>
+  </section>
+  <!-- Page end -->
+
+  <%= render 'shared/footer'%>
+
+</body>

@@ -1,0 +1,31 @@
+<header class="header-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+          <div class="site-logo">
+            <img src="../assets/logo.png" alt="">
+          </div>
+          <div class="nav-switch">
+            <i class="fa fa-bars"></i>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+          <%if current_user && current_user.profile.nil?%>
+            <a href="<%=new_profile_path%>" class="site-btn header-btn">Compléter mon profil</a>
+          <%elsif current_user && current_user.profile%>
+            <a href="<%=pages_client_path%>" class="site-btn header-btn">Mon espace</a>
+          <%else%>
+            <a href="<%=new_user_registration_path%>" class="site-btn header-btn">S'inscrire</a>
+          <%end%>
+          <nav class="main-menu">
+            <ul>
+              <li><%= link_to 'Accueil', root_path%></li>
+              <li><%= link_to 'Qui sommes-nous', root_path%></li>
+              <li><%= link_to 'Actualités', root_path%></li>
+              <li><%= link_to 'Nous contacter', root_path%></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>

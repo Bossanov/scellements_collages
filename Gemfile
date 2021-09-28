@@ -23,8 +23,9 @@ gem 'turbolinks', '~> 5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'simple_form'
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
+ gem 'image_processing', '~> 1.2'
+gem 'cloudinary', '~> 1.16.0'
+gem 'devise'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails', groups: [:development, :test]
@@ -51,6 +52,6 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
-
+gem 'faker', '~> 2.10', '>= 2.10.2'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

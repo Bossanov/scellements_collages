@@ -1,0 +1,35 @@
+<section class="contact-page spad pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="contact-form-warp">
+          <div class="section-title text-white text-left">
+            <h2>Se connecter</h2>
+            <p>Pour pouvoir profiter de nos services, vous devez être inscrit. </p>
+          </div>
+          <div class="contact-form">
+            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <form >
+                <%= f.input :email,
+                  required: false,
+                  autofocus: true,
+                  input_html: { autocomplete: "email" },
+                  label: false,
+                  placeholder: "Votre E-mail" %>
+                <%= f.input :password,
+                  required: false,
+                  input_html: { autocomplete: "current-password" },
+                  label: false,
+                  placeholder: "Votre mot de passe" %>
+                <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable?%>
+                <button type="submit" class="site-btn">Se connecter</button>
+              </form>
+            <%end%>
+          </div>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,51 @@
+<section class="contact-page spad pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="contact-form-warp">
+          <div class="section-title text-white text-left">
+            <h2>Remplir son profil</h2>
+            <p>Ces informations sont indispensables pour la suite </p>
+          </div>
+          <div class="contact-form">
+            <%= simple_form_for @profile do |f| %>
+             <form >
+                <%= f.input :last_name,
+                  :as => :string,
+                  required: true,
+                  autofocus: true,
+                  label: false,
+                  placeholder: "Votre nom" %>
+                <%= f.input :first_name,
+                  :as => :string,
+                  required: true,
+                  autofocus: true,
+                  label: false,
+                  placeholder: "Votre prénom" %>
+                <%= f.input :address,
+                  :as => :string,
+                  required: true,
+                  autofocus: true,
+                  label: false,
+                  placeholder: "Votre adresse" %>
+                <%= f.input :post_code,
+                  :as => :string,
+                  required: true,
+                  autofocus: true,
+                  label: false,
+                  placeholder: "Votre code postal" %>
+                <%= f.input :city,
+                  required: true,
+                  autofocus: true,
+                  label: false,
+                  placeholder: "Votre ville" %>
+                <%= f.input :country, :as => :string, required: true, autofocus: true, label: false, placeholder: "Votre pays"%>
+                <button  type="submit">Enregistrer</button>
+              </form>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -22,9 +22,10 @@ class ArticlesController < ApplicationController
   # POST /articles
   def create
     @article = Article.new(article_params)
+    @article.statut = "no"
 
     if @article.save
-      redirect_to @article, notice: 'Article was successfully created.'
+      redirect_to @article, notice: 'L article a été créé avec succès.'
     else
       render :new
     end
@@ -33,7 +34,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   def update
     if @article.update(article_params)
-      redirect_to @article, notice: 'Article was successfully updated.'
+      redirect_to @article, notice: 'L article a été modifié avec succès.'
     else
       render :edit
     end
@@ -42,7 +43,21 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   def destroy
     @article.destroy
-    redirect_to articles_url, notice: 'Article was successfully destroyed.'
+    redirect_to articles_url, notice: 'L article a été effacé avec succès.'
+  end
+
+  def article_upgrade
+    @article = Article.find(params[:id])
+    @article.statut = "yes"
+    @article.save
+    redirect_to pages_admin_path
+  end
+
+  def article_downgrade
+    @article = Article.find(params[:id])
+    @article.statut = "no"
+    @article.save
+    redirect_to pages_admin_path
   end
 
   private
@@ -53,6 +68,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body,:statut, :theme, photos: [])
     end
 end

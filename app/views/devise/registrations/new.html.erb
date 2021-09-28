@@ -1,0 +1,43 @@
+<section class="contact-page spad pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="contact-form-warp">
+          <div class="section-title text-white text-left">
+            <h2>S'inscrire</h2>
+            <p>Inscrivez-vous afin de profiter de nos services. </p>
+          </div>
+          <div class="contact-form">
+            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <form >
+                <%= f.error_notification %>
+                <%= f.input :email,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "email" },
+                  label: false,
+                  placeholder: "Votre E-mail" %>
+                <%= f.input :password,
+                  required: true,
+                  input_html: { autocomplete: "current-password" },
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  label: false,
+                  placeholder: "Votre mot de passe" %>
+                <%= f.input :password_confirmation,
+                  required: true,
+                  input_html: { autocomplete: "new-password" },
+                  label: false,
+                  placeholder: "Confirmez votre mot de passe" %>
+                <div class="form-actions">
+                  <%= f.button :submit, "S'inscrire" %>
+                </div>
+              </form>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
