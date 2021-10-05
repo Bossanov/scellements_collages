@@ -1,0 +1,10 @@
+<% if @results.any? %>
+  <h3>Search results (<%= @total_results %>):</h3>
+  <ol>
+  <% @results.each do |article| %>
+    <li><%= article.name %></li>
+  <% end %>
+  </ol>
+<% else %>
+  Results not found :(
+<% end %>

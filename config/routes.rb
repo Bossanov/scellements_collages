@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
 get 'pages/client'
 get 'pages/admin'
-
+get 'pages/resultsearch'
+get 'search', to: 'search#search'
 end

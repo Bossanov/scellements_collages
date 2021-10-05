@@ -7,10 +7,10 @@
         <div class="row">
           <div class="col-md-10 offset-md-1">
             <!-- search form -->
-            <form class="course-search-form">
-              <input type="text" placeholder="Article">
-              <input type="text" class="last-m" placeholder="Catégorie">
-              <button class="site-btn">Rechercher</button>
+            <form class="course-search-form" action="<%=search_path%>" target="_blank" type="get" >
+              <input type="text"   id="title" name="title" placeholder="Mot-Clef">
+
+              <input  type="submit" value="chercher" class="site-btn">
             </form>
           </div>
         </div>
