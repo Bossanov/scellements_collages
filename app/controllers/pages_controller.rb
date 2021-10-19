@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: :home
+  skip_before_action :authenticate_user!, only: [:construction, :contact]
 
   def home
   end
@@ -11,6 +11,12 @@ class PagesController < ApplicationController
   end
 
   def resultsearch
+  end
+
+  def construction
+  end
+
+  def contact
   end
 
 end

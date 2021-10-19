@@ -1,0 +1,28 @@
+  <section class="signup-section spad" style="height:100%;">
+    <div class="signup-bg set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1634424257/SCELLEMENT_COLLAGE_nsatst.svg"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="signup-warp">
+            <div class="section-title text-white text-left">
+              <h2>Intéressé(e) ? Inscrivez-vous !</h2>
+              <br>
+              <p>En remplissant ce formulaire, vous aurez la possibilité d'être informé sur l'évolution de notre projet et vous serez également les premiers à pouvoir en profiter ! Alors n'hésitez pas !</p>
+              <br>
+              <br>
+            </div>
+            <% @message = Message.new %>
+            <%= simple_form_for(@message) do |f| %>
+              <div class="signup-form">
+                <%= f.input :nom ,label: false,  type:"text",  required: true,  placeholder:"Votre nom"%>
+                <%= f.input :email ,label: false,  type:"text",  required: true,  placeholder:"Votre E-mail"%>
+                <%= f.input :prof ,label: false,  type:"text",  required: true,  placeholder:"Votre profession"%>
+                <button class="site-btn" type="submit">Envoyer</button>
+                <a href="<%=root_path%>" class="site-btn">Retour</a>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

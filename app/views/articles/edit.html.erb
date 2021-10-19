@@ -1,6 +1,30 @@
-<h1>Editing Article</h1>
 
-<%= render 'form', article: @article %>
+<body>
 
-<%= link_to 'Show', @article %> |
-<%= link_to 'Back', articles_path %>
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
+    <div class="container">
+      <div class="hero-text text-white">
+        <h1>ESPACE ADMIN </h1>
+      </div>
+    </div>
+  </div>
+
+
+
+  <section>
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Modifier un article</h2>
+
+      </div>
+
+
+      <%= render 'form', article: @article %>
+   </div>
+  </section>
+
+</body>

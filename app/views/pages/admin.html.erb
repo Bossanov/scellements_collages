@@ -1,0 +1,352 @@
+<style>
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+<body>
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
+    <div class="container">
+      <div class="hero-text text-white">
+        <h1>ESPACE ADMIN </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab links -->
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'London')">Articles</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button>
+  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Clients</button>
+  <button class="tablinks" onclick="openCity(event, 'Bord' )">Tableau de bord</button>
+
+</div>
+
+
+
+<!-- Tab content -->
+<div id="London" class="tabcontent">
+
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Gestion des articles<span class="badge badge-primary badge-pill"><%= Article.all.count%></span></h2>
+        <a href="<%=new_article_path%>">Ajouter un article</a>
+      </div>
+    </div>
+    <div class="course-warp">
+      <ul class="course-filter controls">
+        <li class="control active" data-filter="all">Tous</li>
+        <li class="control" data-filter=".finance">Thème#1</li>
+        <li class="control" data-filter=".design">Thème#2</li>
+        <li class="control" data-filter=".web">Thème#3</li>
+        <li class="control" data-filter=".photo">Thème#4</li>
+      </ul>
+      <div class="row course-items-area">
+        <%@articleslast = Article.all%>
+
+        <% @articleslast.each do |article| %>
+
+          <%if article.theme == "theme1" || article.theme == "Thème#1"%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6 finance">
+              <div class="course-item">
+                <div class="course-thumb set-bg" data-setbg="../assets/courses/1.jpg">
+                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
+                </div>
+                <div class="course-info">
+                  <div class="course-text">
+                    <h5><%=article.title.capitalize%></h5>
+                    <p><%=article.body%></p>
+                    <div class="students">120 Students</div>
+                  </div>
+                  <div class="course-author">
+
+                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier </a>
+                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+
+          <%if article.theme == "theme2" || article.theme == "Thème#2"%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6 design">
+              <div class="course-item">
+                <div class="course-thumb set-bg" data-setbg="../assets/courses/2.jpg">
+                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
+                </div>
+                <div class="course-info">
+                  <div class="course-text">
+                    <h5><%=article.title.capitalize%></h5>
+                    <p><%=article.body%></p>
+                    <div class="students">120 Students</div>
+                  </div>
+                  <div class="course-author">
+                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier</a>
+                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+
+          <%if article.theme == "theme3" || article.theme == "Thème#3"%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6 web">
+              <div class="course-item">
+                <div class="course-thumb set-bg" data-setbg="../assets/courses/3.jpg">
+                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
+                </div>
+                <div class="course-info">
+                  <div class="course-text">
+                    <h5><%=article.title.capitalize%></h5>
+                    <p><%=article.body%></p>
+                    <div class="students">120 Students</div>
+                  </div>
+                  <div class="course-author">
+                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier</a>
+                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+
+          <%if article.theme == "theme4" || article.theme == "Thème#4"%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6 photo">
+              <div class="course-item">
+                <div class="course-thumb set-bg" data-setbg="../assets/courses/4.jpg">
+                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
+                </div>
+                <div class="course-info">
+                  <div class="course-text">
+                    <h5><%=article.title.capitalize%></h5>
+                    <p><%=article.body%></p>
+                    <div class="students">120 Students</div>
+                  </div>
+                  <div class="course-author">
+                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier</a>
+                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+
+        <%end%>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+<div id="Paris" class="tabcontent">
+
+
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Gestion des messages<span class="badge badge-primary badge-pill"><%= Message.all.count%></span></h2>
+
+        <a href="">Exporter au format Excel</a>
+      </div>
+    </div>
+
+
+
+  </section>
+
+  <div class="table-responsive">
+  <table class="table">
+
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Nom</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Profession</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+    <% @messages = Message.all%>
+    <% g = 1 %>
+    <% @messages.each do |mess|%>
+      <tr>
+        <th scope="row"><%= g %></th>
+        <td><%= mess.created_at.strftime("%d.%m.%Y")%></td>
+        <td><%= mess.nom%></td>
+        <td><%= mess.email%></td>
+        <td><%= mess.prof%></td>
+      </tr>
+      <% g = g + 1 %>
+
+    <%end%>
+
+
+
+  </tbody>
+  </table>
+
+</div>
+
+
+</div>
+
+
+<div id="Tokyo" class="tabcontent">
+
+
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Gestion des clients<span class="badge badge-primary badge-pill"><%= User.all.count%></span></h2>
+        <a href="">Exporter au format Excel</a>
+      </div>
+    </div>
+
+
+
+  </section>
+
+  <div class="table-responsive">
+  <table class="table">
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date inscription</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+  <%@users = User.all%>
+    <% i = 1 %>
+    <%@users.each do |user|%>
+      <%@profile = Profile.where(user_id: user.id)%>
+      <tr>
+        <th scope="row"><%=i%></th>
+        <td><%= @profile.last.last_name.upcase%></td>
+        <td><%= @profile.last.first_name.capitalize%></td>
+        <td><%= user.email%></td>
+        <td><%= user.created_at.strftime("%d.%m.%Y")%></td>
+
+      </tr>
+
+    <% i = i + 1 %>
+    <% end %>
+
+
+
+  </tbody>
+  </table>
+</div>
+
+
+
+</div>
+
+
+<div id="Bord" class="tabcontent">
+
+
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Tableau de bord</h2>
+
+      </div>
+    </div>
+
+  <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Nombre total d'articles publiés
+    <span class="badge badge-primary badge-pill"><%= Article.all.count%></span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Nombre total d'utilisateurs
+    <span class="badge badge-primary badge-pill"><%= User.all.count%></span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Nombre d'utilisateurs avec un abonnement en cours
+    <span class="badge badge-primary badge-pill">1</span>
+  </li>
+</ul>
+
+
+  </section>
+
+
+
+</div>
+
+
+
+
+</body>
+
+<script >
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>

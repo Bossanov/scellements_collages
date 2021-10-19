@@ -1,0 +1,5 @@
+meta_product_name: "Scellement et collage"
+meta_title: "Scellement & Collage"
+meta_description: "La formation dentaire enfin libre quand vous voulez"
+meta_image: "cover.png" # should exist in `app/assets/images/`
+twitter_account: "@product_twitter_account"   # required for Twitter Cards

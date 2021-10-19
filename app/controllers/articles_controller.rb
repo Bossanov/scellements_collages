@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
     @article.statut = "no"
 
     if @article.save
-      redirect_to @article, notice: 'L article a été créé avec succès.'
+      redirect_to pages_admin_path, notice: 'L article a été créé avec succès.'
     else
       render :new
     end
@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   def update
     if @article.update(article_params)
-      redirect_to @article, notice: 'L article a été modifié avec succès.'
+      redirect_to pages_admin_path, notice: 'L article a été modifié avec succès.'
     else
       render :edit
     end
@@ -65,6 +65,14 @@ class ArticlesController < ApplicationController
     @results = ArticleIndex.search(query).records
     redirect_to search_path
 
+  end
+
+  def supprimer_article
+    @article = Article.where(id: params[:articleid])
+
+    @article.last.destroy
+    flash[:alert] = "L'article a été effacé de la base de donnée."
+    redirect_to pages_admin_path
   end
 
   private

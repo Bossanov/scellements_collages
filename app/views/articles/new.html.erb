@@ -1,21 +1,29 @@
 <body>
-  <!-- Page Preloder -->
+
   <div id="preloder">
     <div class="loader"></div>
   </div>
   <%= render 'shared/navbar'%>
   <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
     <div class="container">
-      <div class="site-breadcrumb">
-        <a style="color:black;" href="#">Accueil</a>
-        <span>Nouvel article</span>
+      <div class="hero-text text-white">
+        <h1>ESPACE ADMIN </h1>
       </div>
     </div>
   </div>
+
+
+
   <section>
     <div class="container">
+      <div class="section-title mb-0">
+        <h2>Ajouter un article</h2>
+
+      </div>
+
+
       <%= render 'form', article: @article %>
-    </div>
+   </div>
   </section>
-  <%= render 'shared/footer'%>
+
 </body>
