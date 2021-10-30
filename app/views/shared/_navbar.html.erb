@@ -12,8 +12,10 @@
         <div class="col-lg-9 col-md-9">
           <%if current_user && current_user.profile.nil?%>
             <a href="<%=new_profile_path%>" class="site-btn header-btn">Compléter mon profil</a>
+            <a href="<%= destroy_user_session_path%>" class="site-btn header-btn"><i class="bx bx-server"></i> <span>Se déconnecter</span></a>
           <%elsif current_user && current_user.profile%>
             <a href="<%=pages_client_path%>" class="site-btn header-btn">Mon espace</a>
+            <a href="<%= destroy_user_session_path%>" class="site-btn header-btn"><i class="bx bx-server"></i> <span>Se déconnecter</span></a>
           <%else%>
             <a href="<%=new_user_registration_path%>" class="site-btn header-btn">S'inscrire</a>
           <%end%>

@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
   def effacer_message
     @message = Message.find(params[:messageid])
     @message.destroy
-    redirect_to pages_construction_path
+    redirect_to pages_admin_path
   end
 
   private

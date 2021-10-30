@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get 'pages/contact'
   get 'search', to: 'search#search'
   get 'supprimer_article', to: 'articles#supprimer_article'
+  get 'effacer_message', to: 'messages#effacer_message'
 end
