@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+
+  before_action :set_profile, only: [:show, :edit, :update, :destroy]
   def new
     @profile = Profile.new
   end
@@ -16,7 +18,7 @@ class ProfilesController < ApplicationController
   def create
     @profile = Profile.new(profile_params)
     @profile.user = current_user
-    @profile.statut = "no"
+    @profile.statut = "client"
     if @profile.save
       flash[:notice] = 'Votre profil a correctement été créé. Merci.'
       redirect_to root_path
@@ -27,24 +29,39 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @profile = current_user.profile
+   @profile = Profile.find(params[:id])
   end
 
   def update
-    @profile = current_user.profile
+
     if @profile.update(profile_params)
       flash[:notice] = 'Votre profil a correctement été actualisé. Merci.'
-      redirect_to profile_path(@profile)
+      redirect_to pages_admin_path
     else
       flash[:notice] = 'Un problème est survenu lors de la mise à jour de votre profil.'
-      redirect_to profile_path(@profile)
+      redirect_to pages_admin_path
     end
   end
 
+  def effacer_profile
+
+    @profile = Profile.find(params[:profileid])
+    @user = User.where(id: @profile.user_id)
+    @profile.destroy
+    @user.last.destroy
+    redirect_to pages_admin_path
+
+  end
+
+
   private
 
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
   def profile_params
-  params.require(:profile).permit(:last_name, :first_name, :statut, :address, :post_code, :city, :country)
+    params.require(:profile).permit(:last_name, :first_name, :statut, :address, :post_code, :city, :country,photos: [])
   end
 end
 

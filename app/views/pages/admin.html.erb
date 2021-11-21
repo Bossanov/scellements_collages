@@ -1,3 +1,4 @@
+<% if current_user && current_user.profile && current_user.profile.statut == "admin" || current_user.profile.statut == "autor"%>
 <style>
 /* Style the tab */
 .tab {
@@ -40,7 +41,7 @@
     <div class="loader"></div>
   </div>
   <%= render 'shared/navbar'%>
-  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1636897179/Espace_Admin_Scellement_Collage_zdfvnq.png">
     <div class="container">
       <div class="hero-text text-white">
         <h1>      </h1>
@@ -53,8 +54,11 @@
   <button class="tablinks" onclick="openCity(event, 'London')">Articles</button>
   <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button>
   <button class="tablinks" onclick="openCity(event, 'Tokyo')">Clients</button>
-  <button class="tablinks" onclick="openCity(event, 'Bord' )">Tableau de bord</button>
+  <button class="tablinks" onclick="openCity(event, 'Pub')">Publicités</button>
+  <button class="tablinks" onclick="openCity(event, 'Act')">Actualités</button>
 
+  <button class="tablinks" onclick="openCity(event, 'Theme')">Gestion des thèmes</button>
+  <button class="tablinks" onclick="openCity(event, 'Bord' )">Tableau de bord</button>
 </div>
 
 
@@ -71,102 +75,50 @@
     </div>
     <div class="course-warp">
       <ul class="course-filter controls">
+        <% @themesarticles = Theme.all%>
         <li class="control active" data-filter="all">Tous</li>
-        <li class="control" data-filter=".finance">Thème#1</li>
-        <li class="control" data-filter=".design">Thème#2</li>
-        <li class="control" data-filter=".web">Thème#3</li>
-        <li class="control" data-filter=".photo">Thème#4</li>
+        <% @themesarticles.each do |t|%>
+
+        <li class="control" data-filter=".<%=t.title.gsub(/[^a-zA-Z0-9\-]/,"").delete(' ')%>"><%=t.title%></li>
+        <%end%>
       </ul>
       <div class="row course-items-area">
         <%@articleslast = Article.all%>
 
         <% @articleslast.each do |article| %>
 
-          <%if article.theme == "theme1" || article.theme == "Thème#1"%>
-            <div class="mix col-lg-3 col-md-4 col-sm-6 finance">
+            <% if article.theme.nil?%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6">
+            <%else%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6 <%=article.theme.gsub(/[^a-zA-Z0-9\-]/,"").delete(' ')%>">
+            <%end%>
               <div class="course-item">
-                <div class="course-thumb set-bg" data-setbg="../assets/courses/1.jpg">
+                <% if article.photos.last.nil?%>
+                <div class="course-thumb set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1630570695/6276688407_28fb0d1b04_o_c3ydng.jpg">
+                <%else%>
+                <div class="course-thumb set-bg" data-setbg="<%=article.photos.last.url%>">
+                <%end%>
                   <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
                 </div>
                 <div class="course-info">
                   <div class="course-text">
                     <h5><%=article.title.capitalize%></h5>
-                    <p><%=article.body%></p>
-                    <div class="students">120 Students</div>
+
+                    <p><%=truncate(article.body.to_plain_text, length: 50).gsub("[&quot;"," ")%></p>
+                    <div class="students"><%=article.theme%></div>
                   </div>
                   <div class="course-author">
 
                     <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier </a>
                     <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
+                    <a href="<%=article_path(article)%>" class="site-btn header-btn">Voir </a>
+
 
                   </div>
                 </div>
               </div>
             </div>
-          <%end%>
 
-          <%if article.theme == "theme2" || article.theme == "Thème#2"%>
-            <div class="mix col-lg-3 col-md-4 col-sm-6 design">
-              <div class="course-item">
-                <div class="course-thumb set-bg" data-setbg="../assets/courses/2.jpg">
-                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
-                </div>
-                <div class="course-info">
-                  <div class="course-text">
-                    <h5><%=article.title.capitalize%></h5>
-                    <p><%=article.body%></p>
-                    <div class="students">120 Students</div>
-                  </div>
-                  <div class="course-author">
-                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier</a>
-                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <%end%>
-
-          <%if article.theme == "theme3" || article.theme == "Thème#3"%>
-            <div class="mix col-lg-3 col-md-4 col-sm-6 web">
-              <div class="course-item">
-                <div class="course-thumb set-bg" data-setbg="../assets/courses/3.jpg">
-                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
-                </div>
-                <div class="course-info">
-                  <div class="course-text">
-                    <h5><%=article.title.capitalize%></h5>
-                    <p><%=article.body%></p>
-                    <div class="students">120 Students</div>
-                  </div>
-                  <div class="course-author">
-                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier</a>
-                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <%end%>
-
-          <%if article.theme == "theme4" || article.theme == "Thème#4"%>
-            <div class="mix col-lg-3 col-md-4 col-sm-6 photo">
-              <div class="course-item">
-                <div class="course-thumb set-bg" data-setbg="../assets/courses/4.jpg">
-                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
-                </div>
-                <div class="course-info">
-                  <div class="course-text">
-                    <h5><%=article.title.capitalize%></h5>
-                    <p><%=article.body%></p>
-                    <div class="students">120 Students</div>
-                  </div>
-                  <div class="course-author">
-                    <a href="<%=edit_article_path(article)%>" class="site-btn header-btn">Modifier</a>
-                    <a href="<%=supprimer_article_path(articleid: article.id)%>" class="site-btn header-btn">Effacer</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <%end%>
 
         <%end%>
       </div>
@@ -174,7 +126,61 @@
   </section>
 </div>
 
+<div id="Act" class="tabcontent">
 
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Gestion des actualités<span class="badge badge-primary badge-pill"><%= Actualite.all.count%></span></h2>
+        <a href="<%=new_actualite_path%>">Ajouter une actualité</a>
+      </div>
+      <br>
+      <br>
+    </div>
+    <div class="course-warp">
+
+      <div class="row course-items-area">
+        <%@actualites = Actualite.all%>
+
+        <% @actualites.each do |article| %>
+
+
+            <div class="mix col-lg-3 col-md-4 col-sm-6">
+
+              <div class="course-item">
+                <% if article.photos.last.nil?%>
+                <div class="course-thumb set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1630570695/6276688407_28fb0d1b04_o_c3ydng.jpg">
+                <%else%>
+                <div class="course-thumb set-bg" data-setbg="<%=article.photos.last.url%>">
+                <%end%>
+                  <div class="price"><%= article.created_at.strftime("%d.%m.%Y")%></div>
+                </div>
+                <div class="course-info">
+                  <div class="course-text">
+                    <h5><%=article.title.capitalize%></h5>
+
+                    <p><%=truncate(article.content.to_plain_text, length: 50).gsub("[&quot;"," ")%></p>
+                    <div class="students"><%=article.statut%></div>
+                    <p><%=article.lien%></p>
+                  </div>
+                  <div class="course-author">
+
+                    <a href="<%=edit_actualite_path(article)%>" class="site-btn header-btn">Modifier </a>
+                    <a href="<%=supprimer_actualite_path(actualiteid: article.id)%>" class="site-btn header-btn">Effacer</a>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        <%end%>
+      </div>
+    </div>
+  </section>
+</div>
 
 
 <div id="Paris" class="tabcontent">
@@ -202,7 +208,10 @@
       <th scope="col">Nom</th>
       <th scope="col">E-mail</th>
       <th scope="col">Profession</th>
+      <th scope="col">Contenu du message</th>
+
       <th scope="col">Action</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -218,6 +227,8 @@
         <td><%= mess.nom%></td>
         <td><%= mess.email%></td>
         <td><%= mess.prof%></td>
+        <td><%= mess.content%></td>
+
         <td><button class="item" data-toggle="tooltip" data-placement="top" title="Effacer">
                 <a class="fas fa-trash-alt" href="<%=effacer_message_path(messageid: mess.id)%> "></a>
               </button></td>
@@ -258,10 +269,14 @@
   <thead>
     <tr>
       <th scope="col">#</th>
+
+
       <th scope="col">Nom</th>
       <th scope="col">Prénom</th>
       <th scope="col">Email</th>
+      <th scope="col">Statut</th>
       <th scope="col">Date inscription</th>
+      <th scope="col">Action</th>
 
     </tr>
   </thead>
@@ -270,17 +285,40 @@
   <%@users = User.all%>
     <% i = 1 %>
     <%@users.each do |user|%>
-      <%@profile = Profile.where(user_id: user.id)%>
+      <%@pro = Profile.where(user_id: user.id)%>
+      <% if @pro.last.nil?%>
       <tr>
-        <th scope="row"><%=i%></th>
-        <td><%= @profile.last.last_name.upcase%></td>
-        <td><%= @profile.last.first_name.capitalize%></td>
-        <td><%= user.email%></td>
-        <td><%= user.created_at.strftime("%d.%m.%Y")%></td>
-
+       <th scope="row"><%=i%></th>
+       <td>Profil non créé</td>
+       <td>Profil non créé</td>
+       <td><%=user.email%></td>
+       <td>Profil non créé</td>
+       <td><%= user.created_at.strftime("%d.%m.%Y")%></td>
+       <td>Profil non créé</td>
       </tr>
 
+      <%else%>
+      <tr>
+        <th scope="row"><%=i%></th>
+
+
+        <td><%= @pro.last.last_name.upcase%></td>
+        <td><%= @pro.last.first_name.capitalize%></td>
+        <td><%= user.email%></td>
+        <td><%= @pro.last.statut%></td>
+
+        <td><%= user.created_at.strftime("%d.%m.%Y")%></td>
+        <% if @pro.last.statut == "admin"%>
+        <td style="color:red;"><a class="fas fa-pen" href="<%=edit_profile_path(@pro.last)%> "></a>   ADMIN</td>
+        <%else%>
+       <td> <a class="fas fa-trash-alt" href="<%=effacer_profile_path(profileid: @pro.last.id)%> "></a>
+       <a class="fas fa-pen" href="<%=edit_profile_path(@pro.last)%>"></a></td>
+        <% end%>
+      </tr>
+      <%end%>
     <% i = i + 1 %>
+
+
     <% end %>
 
 
@@ -329,6 +367,135 @@
 
 
 
+<div id="Pub" class="tabcontent">
+
+
+
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Gestion des publicités<span class="badge badge-primary badge-pill"><%= Publicity.all.count%></span></h2>
+        <a href="<%=new_publicity_path%>">Ajouter une publicité</a>
+      </div>
+    </div>
+    <div class="course-warp">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <div class="row course-items-area">
+        <%@publicities = Publicity.all%>
+
+        <% if @publicities.length == 0%>
+        <h2>Pas de publicité enregistrée dans la base de données</h2>
+        <% else %>
+        <% @publicities.each do |pub| %>
+
+
+            <div class="mix col-lg-3 col-md-4 col-sm-6 ">
+              <div class="course-item">
+                <div class="course-thumb set-bg" data-setbg="<%=pub.photos.last.url%>">
+                  <div class="price"><%= pub.created_at.strftime("%d.%m.%Y")%></div>
+                </div>
+                <div class="course-info">
+                  <div class="course-text">
+                    <h5><%=pub.title.capitalize%></h5>
+
+                    <p><%=truncate(pub.content.to_plain_text, length: 50).gsub("[&quot;"," ")%></p>
+                    <div class="students"><%= pub.situation%></div>
+                  </div>
+                  <div class="course-author">
+
+                    <a href="<%=edit_publicity_path(pub)%>" class="site-btn header-btn">Modifier </a>
+                    <a href="<%=supprimer_publicity_path(publicityid: pub.id)%>" class="site-btn header-btn">Effacer</a>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          <%end%>
+        <%end%>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="Theme" class="tabcontent">
+  <section class="course-section spad">
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Gestion des thèmes<span class="badge badge-primary badge-pill"><%= Theme.all.count%></span></h2>
+
+        <%= link_to 'Ajouter un thème', new_theme_path, class:"au-btn au-btn-icon au-btn--green au-btn--small"%>
+      </div>
+    </div>
+
+  </section>
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="table-data__tool">
+      <div class="table-data__tool-left">
+        <div class="rs-select2--light rs-select2--md">
+          <div class="dropDownSelect2"></div>
+        </div>
+      </div>
+      <div class="table-data__tool-right">
+
+      </div>
+    </div>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Nbre d'articles sur ce thème</th>
+
+            <th></th>
+          </tr>
+        </thead>
+      <tbody>
+      <% @themes = Theme.all%>
+
+      <% if @themes.length == 0 %>
+        <tr class="tr-shadow">
+          <td>Pas de thème enregistré dans la base de données</td>
+        </tr>
+      <% else%>
+      <% @themes.each do |theme|%>
+        <% @art = Article.where(theme: theme.title)%>
+        <tr class="tr-shadow">
+          <td><%= theme.title%></td>
+          <td><%= @art.length%></td>
+
+          <td>
+            <div class="table-data-feature">
+              <% if @art.length == 0%>
+              <button class="item" data-toggle="tooltip" data-placement="top" title="Effacer">
+                <a class="fas fa-trash-alt" href="<%=supprimer_theme_path(themeid: theme.id)%> "></a>
+              </button>
+              <%end%>
+            </div>
+          </td>
+        </tr>
+        <tr class="spacer"></tr>
+        <% end%>
+        <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
 
 </body>
 
@@ -354,3 +521,23 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 </script>
+<%else%>
+
+<body>
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1636897179/Espace_Admin_Scellement_Collage_zdfvnq.png">
+    <div class="container">
+      <div class="hero-text text-white">
+        <h1>      </h1>
+      </div>
+    </div>
+  </div>
+  <h1>Vous n'avez pas acces à cette page, désolé...</h1>
+  <a href="<%=pages_home_path%>" class="site-btn header-btn">Retour Accueil</a>
+
+
+</body>
+<%end%>

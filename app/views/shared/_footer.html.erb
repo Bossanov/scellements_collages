@@ -3,50 +3,47 @@
       <div class="footer-warp">
         <div class="row">
           <div class="widget-item">
-            <h4>Contact Info</h4>
+            <h4>Scellement & collage</h4>
             <ul class="contact-list">
-              <li>1481 Creekside Lane <br>Avila Beach, CA 931</li>
+              <li>277 Avenue Jean Garaialde<br>62152 HARDELOT (France)</li>
               <li>+53 345 7953 32453</li>
-              <li>yourmail@gmail.com</li>
+              <li>staumont.antoine@me.com</li>
             </ul>
           </div>
           <div class="widget-item">
-            <h4>Engeneering</h4>
+            <h4>Administrateur</h4>
+            <%@direction = Profile.where(statut: "admin")%>
+
             <ul>
-              <li><a href="">Applied Studies</a></li>
-              <li><a href="">Computer Engeneering</a></li>
-              <li><a href="">Software Engeneering</a></li>
-              <li><a href="">Informational Engeneering</a></li>
-              <li><a href="">System Engeneering</a></li>
+            <% @direction.each do |admin|%>
+              <li><p><%=admin.first_name.capitalize%> <%=admin.last_name.upcase%></p></li>
+
+              <%end%>
             </ul>
           </div>
           <div class="widget-item">
-            <h4>Graphic Design</h4>
+            <h4>Auteurs</h4>
+            <%@auteur = Profile.where(statut: "autor")%>
             <ul>
-              <li><a href="">Applied Studies</a></li>
-              <li><a href="">Computer Engeneering</a></li>
-              <li><a href="">Software Engeneering</a></li>
-              <li><a href="">Informational Engeneering</a></li>
-              <li><a href="">System Engeneering</a></li>
+              <%@auteur.each do |autor|%>
+              <li><p><%=autor.first_name.capitalize%> <%=autor.last_name.upcase%></p></li>
+              <%end%>
             </ul>
           </div>
           <div class="widget-item">
-            <h4>Development</h4>
+            <h4>Quelques chiffres</h4>
             <ul>
-              <li><a href="">Applied Studies</a></li>
-              <li><a href="">Computer Engeneering</a></li>
-              <li><a href="">Software Engeneering</a></li>
-              <li><a href="">Informational Engeneering</a></li>
-              <li><a href="">System Engeneering</a></li>
+              <li><p>Nombre d'inscrits: <%=User.all.count%></p></li>
+              <li><p>Nombres d'articles: <%=Article.all.count%></p></li>
+              <li><p>Année de création : 2021</p></li>
+
             </ul>
           </div>
           <div class="widget-item">
-            <h4>Newsletter</h4>
-            <form class="footer-newslatter">
-              <input type="email" placeholder="E-mail">
-              <button class="site-btn">Subscribe</button>
-              <p>*We don’t spam</p>
-            </form>
+           <div class="site-logo">
+            <img src="https://res.cloudinary.com/dz83jh064/image/upload/v1636896617/logook_zcjtnu.png" alt="">
+          </div>
+
           </div>
         </div>
       </div>
@@ -58,9 +55,9 @@
 
           <li><a href="#">Mentions légales</a></li>
         </ul>
-        <div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div class="copyright">
 Scellement & Collage &copy;<script>document.write(new Date().getFullYear());</script>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+</div>
       </div>
     </div>
   </footer>

@@ -55,3 +55,7 @@ end
 gem 'faker', '~> 2.10', '>= 2.10.2'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'stripe'
+gem 'pay', '~> 3.0'
+gem 'figaro'
+

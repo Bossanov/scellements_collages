@@ -1,0 +1,62 @@
+<body>
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1636897472/actualit%C3%A9s_wdp3ss.png">
+    <div class="container">
+      <div class="site-breadcrumb">
+        <a style="color:black;" href="<%=pages_home_path%>">Accueil</a>
+        <span>Actualités</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="blog-page spad pb-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+
+
+          <% @actualites = Actualite.all%>
+          <% if @actualites.length == 0%>
+
+          <h1>Pas d'actualité pour le moment</h1>
+
+          <%else%>
+          <% @actualites.each do |a|%>
+
+          <!-- blog post -->
+          <div class="blog-post">
+            <img src="<%=a.photos.last.url%>" alt="">
+            <h3><%=a.title%></h3>
+            <div class="blog-metas">
+
+
+              <div class="blog-meta">
+                <p><%=a.date%></p>
+              </div>
+
+            </div>
+            <p><%= a.content%></p>
+
+            <% if a.lien.nil?%>
+            <%else%>
+            <a href="https://<%=a.lien%>" target="_blank" class="site-btn readmore">En savoir plus</a>
+            <%end%>
+          </div>
+
+
+          <%end%>
+          <%end%>
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <%= render 'shared/footer'%>
+</body>
+

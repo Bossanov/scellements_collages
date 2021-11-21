@@ -1,4 +1,4 @@
-
+<% if current_user && current_user.profile && current_user.profile.statut == "clientpaid" || current_user.profile.statut == "autor" || current_user.profile.statut == "admin"%>
 <body>
   <!-- Page Preloder -->
   <div id="preloder">
@@ -11,7 +11,8 @@
   <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
     <div class="container">
       <div class="site-breadcrumb">
-        <a style="color:black;" href="#">Accueil</a>
+        <a style="color:black;" href="<%=pages_home_path%>">Accueil</a>
+        <a style="color:black;" href="<%=pages_client_path%>">Mon espace</a>
         <span>Article</span>
       </div>
     </div>
@@ -19,7 +20,7 @@
   <!-- Page info end -->
 
 
-  <%= render 'shared/searchclient'%>
+
 
 
   <!-- single course section -->
@@ -35,13 +36,14 @@
                 <div class="course-author">
                   <div class="ca-pic set-bg" data-setbg="../assets/authors/2.jpg"></div>
                   <h6>Rédacteur</h6>
-                  <p>William Parker, <span>Developer</span></p>
+                  <p><%=@article.autor%></p>
+
                 </div>
               </div>
               <div class="course-meta">
                 <div class="cm-info">
-                  <h6>Catégorie</h6>
-                  <p>Development</p>
+                  <h6>Thème</h6>
+                  <p><%=@article.theme%></p>
                 </div>
               </div>
 
@@ -62,7 +64,11 @@
           </div>
         </div>
       </div>
-      <img src="../assets/courses/single.jpg" alt="" class="course-preview">
+      <% if @article.photos.last.nil?%>
+        <img src="https://res.cloudinary.com/dz83jh064/image/upload/v1630570695/6276688407_28fb0d1b04_o_c3ydng.jpg" alt="" class="course-preview">
+      <%else%>
+        <img src="<%=@article.photos.last.url%>" alt="" class="course-preview">
+      <%end%>
       <div class="row">
         <div class="col-lg-10 offset-lg-1 course-list">
           <div class="cl-item">
@@ -74,6 +80,7 @@
   </section>
   <!-- single course section end -->
 
+<%= render 'shared/search'%>
 
   <!-- Page -->
   <section class="realated-courses spad">
@@ -81,91 +88,69 @@
       <h2 class="rc-title">Derniers articles traités</h2>
       <div class="rc-slider owl-carousel">
         <!-- course -->
+
+        <% @articles = Article.all.order("created_at DESC").first(6) %>
+          <% @articles.each do |art|%>
+
         <div class="course-item">
-          <div class="course-thumb set-bg" data-setbg="../assets/courses/1.jpg">
-            <div class="price">Price: $15</div>
+
+          <% if art.photos.last.nil?%>
+                <div class="course-thumb set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1630570695/6276688407_28fb0d1b04_o_c3ydng.jpg">
+                <%else%>
+                <div class="course-thumb set-bg" data-setbg="<%=art.photos.last.url%>">
+                <%end%>
+
+
+
+
+
+            <div class="price"><%= art.created_at.strftime("%d.%m.%Y")%></div>
           </div>
           <div class="course-info">
             <div class="course-text">
-              <h5>Art & Crafts</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur</p>
-              <div class="students">120 Students</div>
+              <h5><%=art.title.capitalize%></h5>
+              <p><%=truncate(art.body.to_plain_text, length: 100).gsub("[&quot;"," ")%></p>
+              <div class="students"><%=art.theme%></div>
             </div>
             <div class="course-author">
-              <div class="ca-pic set-bg" data-setbg="../assets/authors/1.jpg"></div>
-              <p>William Parker, <span>Developer</span></p>
+
+
+              <% if art.autor.nil?%>
+                      <div class="ca-pic set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png"></div>
+                    <%else%>
+                      <% @autor = Profile.where(last_name: art.autor.split.last, statut: "autor")%>
+                      <% if @autor.last.photos.last.nil?%>
+                        <div class="ca-pic set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png"></div>
+                      <%elsif @autor.length > 1%>
+                        <div class="ca-pic set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png"></div>
+                      <%else%>
+                        <div class="ca-pic set-bg" data-setbg="<%=@autor.last.photos.last.url%>"></div>
+                      <%end%>
+                    <%end%>
+                    <% if art.autor.nil?%>
+                      <p>Auteur non communiqué</p>
+                    <%else%>
+                      <p><%=art.autor%></p>
+                    <%end%>
+
+
+                    <br>
+                    <%if current_user && current_user.profile.nil?%>
+                     <a href="<%=new_user_registration_path%>" class="site-btn header-btn">Je crée mon profil</a>
+                    <% elsif current_user && current_user.profile && current_user.profile.statut == "clientpaid" || current_user.profile.statut == "autor" || current_user.profile.statut == "admin"%>
+                    <a href="<%=article_path(art)%>" class="site-btn header-btn">Voir </a>
+                    <%else%>
+                    <a href="" class="site-btn header-btn">Je m'abonne</a>
+                    <%end%>
+
+
             </div>
           </div>
         </div>
-        <!-- course -->
-        <div class="course-item">
-          <div class="course-thumb set-bg" data-setbg="../assets/courses/2.jpg">
-            <div class="price">Price: $15</div>
-          </div>
-          <div class="course-info">
-            <div class="course-text">
-              <h5>IT Development</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur</p>
-              <div class="students">120 Students</div>
-            </div>
-            <div class="course-author">
-              <div class="ca-pic set-bg" data-setbg="../assets/authors/2.jpg"></div>
-              <p>William Parker, <span>Developer</span></p>
-            </div>
-          </div>
-        </div>
-        <!-- course -->
-        <div class="course-item">
-          <div class="course-thumb set-bg" data-setbg="../assets/courses/3.jpg">
-            <div class="price">Price: $15</div>
-          </div>
-          <div class="course-info">
-            <div class="course-text">
-              <h5>Graphic Design</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur</p>
-              <div class="students">120 Students</div>
-            </div>
-            <div class="course-author">
-              <div class="ca-pic set-bg" data-setbg="../assets/authors/3.jpg"></div>
-              <p>William Parker, <span>Developer</span></p>
-            </div>
-          </div>
-        </div>
-        <!-- course -->
-        <div class="course-item">
-          <div class="course-thumb set-bg" data-setbg="../assets/courses/4.jpg">
-            <div class="price">Price: $15</div>
-          </div>
-          <div class="course-info">
-            <div class="course-text">
-              <h5>IT Development</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur</p>
-              <div class="students">120 Students</div>
-            </div>
-            <div class="course-author">
-              <div class="ca-pic set-bg" data-setbg="../assets/authors/4.jpg"></div>
-              <p>William Parker, <span>Developer</span></p>
-            </div>
-          </div>
-        </div>
-        <!-- course -->
-        <div class="course-item">
-          <div class="course-thumb set-bg" data-setbg="../assets/courses/5.jpg">
-            <div class="price">Price: $15</div>
-          </div>
-          <div class="course-info">
-            <div class="course-text">
-              <h5>IT Development</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur</p>
-              <div class="students">120 Students</div>
-            </div>
-            <div class="course-author">
-              <div class="ca-pic set-bg" data-setbg="../assets/authors/5.jpg"></div>
-              <p>William Parker, <span>Developer</span></p>
-            </div>
-          </div>
-        </div>
-        <!-- course -->
+        <%end%>
+
+
+
       </div>
     </div>
   </section>
@@ -174,3 +159,20 @@
   <%= render 'shared/footer'%>
 
 </body>
+<%else%>
+<div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1632426999/homepage_bblzst.png">
+    <div class="container">
+      <div class="site-breadcrumb">
+        <a style="color:black;" href="<%=pages_home_path%>">Accueil</a>
+        <a style="color:black;" href="<%=pages_client_path%>">Mon espace</a>
+        <span>Article</span>
+      </div>
+    </div>
+  </div>
+  <h1> Pour visualiser un article, vous devez être abonné !</h1>
+  <a href="" class="site-btn header-btn">Je m'abonne</a>
+  <a href="<%=pages_home_path%>" class="site-btn header-btn">Retour Accueil</a>
+  <%= render 'shared/footer'%>
+
+<%end%>
+

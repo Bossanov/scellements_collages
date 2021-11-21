@@ -1,0 +1,30 @@
+
+<body>
+
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1636897179/Espace_Admin_Scellement_Collage_zdfvnq.png">
+    <div class="container">
+      <div class="hero-text text-white">
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <section>
+    <div class="container">
+      <div class="section-title mb-0">
+        <h2>Nouvelle publicité</h2>
+
+      </div>
+
+
+      <%= render 'form', publicity: @publicity %>
+   </div>
+  </section>
+
+</body>

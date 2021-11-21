@@ -1,0 +1,42 @@
+
+
+
+<% @profile = Profile.where(user_id: current_user.id)%>
+
+
+<body>
+<div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1636897778/Espace_client_agrp0c.png">
+    <div class="container">
+      <div class="site-breadcrumb">
+        <a style="color:black;" href="<%=pages_home_path%>">Accueil</a>
+        <span>Abonnement</span>
+      </div>
+    </div>
+  </div>
+<section class="contact-page spad pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="contact-form-warp">
+          <div class="section-title text-white text-left">
+            <h2>Abonnement S&C</h2>
+            <p>Félicitations !!! </p>
+          </div>
+          <div class="contact-form">
+           <h2>Merci <%=@profile.last.first_name.capitalize%>, vous avez réglé votre abonnement de <%= pretty_amount(@amount)%>/mois et vous pouvez dès à présent visualiser l'ensemble de nos articles.</h2>
+            <a href="<%= pages_client_path%>" class="site-btn"><i class="bx bx-server"></i> <span>On y va !</span></a>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>

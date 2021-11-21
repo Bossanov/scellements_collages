@@ -1,33 +1,50 @@
 <header class="header-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-3">
-          <div class="site-logo">
-            <img src="../assets/logo.png" alt="">
-          </div>
-          <div class="nav-switch">
-            <i class="fa fa-bars"></i>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3">
+        <div class="site-logo">
+          <img src="https://res.cloudinary.com/dz83jh064/image/upload/v1636896617/logook_zcjtnu.png" alt="">
         </div>
-        <div class="col-lg-9 col-md-9">
-          <%if current_user && current_user.profile.nil?%>
-            <a href="<%=new_profile_path%>" class="site-btn header-btn">Compléter mon profil</a>
-            <a href="<%= destroy_user_session_path%>" class="site-btn header-btn"><i class="bx bx-server"></i> <span>Se déconnecter</span></a>
-          <%elsif current_user && current_user.profile%>
-            <a href="<%=pages_client_path%>" class="site-btn header-btn">Mon espace</a>
-            <a href="<%= destroy_user_session_path%>" class="site-btn header-btn"><i class="bx bx-server"></i> <span>Se déconnecter</span></a>
-          <%else%>
-            <a href="<%=new_user_registration_path%>" class="site-btn header-btn">S'inscrire</a>
-          <%end%>
-          <nav class="main-menu">
-            <ul>
-              <li><%= link_to 'Accueil', root_path %></li>
-              <li><%= link_to 'Qui sommes-nous', root_path%></li>
-              <li><%= link_to 'Actualités', root_path%></li>
-              <li><%= link_to 'Nous contacter', root_path%></li>
-            </ul>
-          </nav>
+        <div class="nav-switch">
+          <i class="fa fa-bars"></i>
         </div>
       </div>
+      <div class="col-lg-9 col-md-9">
+        <%if current_user && current_user.profile.nil?%>
+          <a href="<%=destroy_user_session_path%>" class="site-btn header-btn">Déconnexion</a>
+        <%elsif current_user && current_user.profile && current_user.profile.statut == "client"%>
+          <a href="<%=destroy_user_session_path%>" class="site-btn header-btn">Déconnexion</a>
+        <%elsif current_user && current_user.profile && current_user.profile.statut == "clientpaid"%>
+          <a href="<%=destroy_user_session_path%>" class="site-btn header-btn">Déconnexion</a>
+        <%elsif current_user && current_user.profile && current_user.profile.statut == "admin"%>
+          <a href="<%=destroy_user_session_path%>" class="site-btn header-btn">Déconnexion</a>
+        <%elsif current_user && current_user.profile && current_user.profile.statut == "autor"%>
+          <a href="<%=destroy_user_session_path%>" class="site-btn header-btn">Déconnexion</a>
+        <%else%>
+          <a href="<%=new_user_registration_path%>" class="site-btn header-btn">S'inscrire</a>
+        <%end%>
+        <nav class="main-menu">
+          <ul>
+            <li><%= link_to 'Accueil', pages_home_path %></li>
+            <li><%= link_to 'Qui sommes-nous', pages_home_path%></li>
+            <li><%= link_to 'Actualités', pages_actualite_path%></li>
+            <%if current_user && current_user.profile.nil?%>
+              <li><%= link_to 'Compléter mon profil', new_profile_path%></li>
+            <%elsif current_user && current_user.profile && current_user.profile.statut == "client"%>
+              <li><%= link_to 'Mon espace', pages_client_path%></li>
+            <%elsif current_user && current_user.profile && current_user.profile.statut == "clientpaid"%>
+              <li><%= link_to 'Mon espace', pages_client_path%></li>
+            <%elsif current_user && current_user.profile && current_user.profile.statut == "admin"%>
+              <li><%= link_to 'Espace Admin', pages_admin_path%></li>
+              <li><%= link_to 'Espace Client', pages_client_path%></li>
+            <%elsif current_user && current_user.profile && current_user.profile.statut == "autor"%>
+              <li><%= link_to 'Espace Admin', pages_admin_path%></li>
+              <li><%= link_to 'Espace Client', pages_client_path%></li>
+            <%else%>
+            <%end%>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </header>
+  </div>
+</header>

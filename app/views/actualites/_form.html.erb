@@ -1,0 +1,20 @@
+
+<%= simple_form_for(@actualite) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :date %>
+    <div class="field" >
+      <%= f.rich_text_area :content ,  label:false, placeholder:'Copiez-collez ici le contenu'%>
+    </div>
+    <%= f.input :statut ,collection: ["actif","standby","VIP"]%>
+    <%= f.input :lien %>
+  </div>
+  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+  <div class="form-actions">
+    <%= f.button :submit ,"Sauvegarder", class:'btn btn-secondary'%>
+    <a href="<%=pages_admin_path%>" class='btn btn-secondary'>Retour à la page Admin</a>
+  </div>
+<% end %>

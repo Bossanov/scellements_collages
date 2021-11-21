@@ -1,0 +1,66 @@
+<body>
+<div id="preloder">
+    <div class="loader"></div>
+  </div>
+  <%= render 'shared/navbar'%>
+  <div class="page-info-section set-bg" data-setbg="https://res.cloudinary.com/dz83jh064/image/upload/v1636897778/Espace_client_agrp0c.png">
+    <div class="container">
+      <div class="site-breadcrumb">
+        <a style="color:black;" href="<%=pages_home_path%>">Accueil</a>
+        <span>Abonnement</span>
+      </div>
+    </div>
+  </div>
+<section class="contact-page spad pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="contact-form-warp">
+          <div class="section-title text-white text-left">
+            <h2>Abonnement S&C</h2>
+            <p>Pour pouvoir profiter de nos services, vous devez être abonné. </p>
+          </div>
+          <div class="contact-form">
+
+            <%= form_tag charges_path do %>
+              <article>
+                <% if flash[:error].present? %>
+                  <div id="error_explanation">
+                    <p><%= flash[:error] %></p>
+                  </div>
+                <% end %>
+              </article>
+
+
+
+          <div class="card w-100">
+            <div class="card-body">
+              <h5 class="card-title">Montant de l'abonnement: <%= pretty_amount(@amount) %>€/mois</h5>
+              <p class="card-text">Paimement sécurisé via Stripe</p>
+
+              <%= hidden_field_tag :subscription, value: params[:subscription] %>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button "
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-description="<%= @description %>"
+                data-email="<%= current_user.email %>"
+                data-bitcoin="true"
+                data-locale="auto"
+                data-currency="eur"
+                data-amount="<%= @amount %>"
+                >Payer
+              </script>
+              <a href="<%= pages_home_path%>" class="btn btn-primary"><i class="bx bx-server"></i> <span>Retour à l'accueil</span></a>
+            </div>
+          </div>
+
+            <% end %>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>

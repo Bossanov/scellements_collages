@@ -19,4 +19,10 @@ class PagesController < ApplicationController
   def contact
   end
 
+  def actualite
+  end
+
+  def abonnement
+  end
+
 end

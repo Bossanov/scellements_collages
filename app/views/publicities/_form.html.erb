@@ -1,0 +1,22 @@
+<%= simple_form_for(@publicity) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+
+    <div class="field" >
+      <%= f.rich_text_area :content ,  label:false, placeholder:'Copiez-collez ici le contenu'%>
+    </div>
+    <%= f.input :lien %>
+    <%= f.input :situation,  collection: ["Homepage", "Search", "Client", "All"] %>
+    <%= f.input :taille,  collection: ["Petite", "Moyenne", "Grande"] %>
+    <%= f.input :statut,  collection: ["Standby", "Ok"] %>
+    <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit,'Sauvegarder' ,class:'btn btn-secondary'%>
+    <a href="<%=pages_admin_path%>" class='btn btn-secondary'>Retour à la page Admin</a>
+  </div>
+<% end %>

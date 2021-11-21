@@ -1,16 +1,29 @@
+<% n = []%>
+<% @themes = Theme.all%>
+<% @themes.each do |t|%>
+  <% n << t.title %>
+<% end%>
+<% a = []%>
+<% @autors = Profile.where(statut: 'autor')%>
+<% @autors.each do |f|%>
+  <% a << f.first_name.capitalize + ' ' + f.last_name.upcase%>
+<% end%>
+
 <%= simple_form_for(@article) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="form-inputs">
     <%= f.input :title , label:false, placeholder:"Titre de l'article "%>
-    <%= f.input :theme,  collection: ["Thème#1", "Thème#2", "Thème#3", "Thème#4"], label: false,  placeholder:"Choisissez votre Thème" %>
+    <%= f.input :theme,  collection: n, label: false,  placeholder:"Choisissez votre Thème" %>
+    <%= f.input :autor,  collection: a, label: false,  placeholder:"Choisissez l'auteur de l'article" %>
+
     <div class="field" >
       <%= f.rich_text_area :body ,  label:false, placeholder:'Copiez-collez ici le contenu'%>
     </div>
   </div>
   <%= f.input :photos, as: :file, input_html: { multiple: true } %>
   <div class="form-actions">
-    <%= f.button :submit , class:'btn btn-secondary'%>
+    <%= f.button :submit ,"Sauvegarder", class:'btn btn-secondary'%>
     <a href="<%=pages_admin_path%>" class='btn btn-secondary'>Retour à la page Admin</a>
   </div>
 <% end %>
